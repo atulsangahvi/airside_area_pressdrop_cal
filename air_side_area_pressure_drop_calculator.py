@@ -35,13 +35,13 @@ def calculate_air_side_area(
     hole_area_per_tube = (math.pi / 4) * tube_od_m**2
     total_hole_area = hole_area_per_tube * total_tubes * fins_per_m
     net_fin_area = total_gross_fin_area - total_hole_area
-    total_air_side_area = tube_ext_area + net_fin_area
+    total_air_side_area = (tube_ext_area + net_fin_area)* face_height_m 
 
     # Free flow area
     fin_spacing_m = 1 / fins_per_m
     open_area_per_gap = face_width_m * (fin_spacing_m - fin_thickness_m)
     total_open_area = open_area_per_gap * fins_per_m * face_height_m
-    frontal_tube_blockage = tubes_per_row * (math.pi / 4) * tube_od_m**2
+    frontal_tube_blockage = tubes_per_row * (math.pi / 4) * tube_od_m**2 * face_height_m
     net_free_flow_area = total_open_area - frontal_tube_blockage
     percent_free_area = 100 * net_free_flow_area / frontal_area_m2
 
