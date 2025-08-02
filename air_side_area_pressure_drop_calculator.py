@@ -56,7 +56,7 @@ def calculate_air_side_area(
     rho = PropsSI('D', 'T', T_K, 'P', 101325, 'Air')
     mu = PropsSI('V', 'T', T_K, 'P', 101325, 'Air')
     if mu <= 0 or math.isnan(mu):
-    raise ValueError("CoolProp returned invalid viscosity (mu). Check temperature range and installation.")
+        raise ValueError("CoolProp returned invalid viscosity (mu). Check temperature range and installation.")
 
     # Reynolds number and friction factor
     Re = rho * air_velocity_ms * tube_od_m / mu
