@@ -126,6 +126,6 @@ if st.button("Calculate"):
         face_height_m, air_flow_cmh, air_temp_C
     )
    df = pd.DataFrame(list(results.items()), columns=["Parameter", "Value"])
-df["Value"] = df["Value"].apply(lambda x: f"{x:.6f}" if isinstance(x, float) else x)
-st.table(df)
+        df["Value"] = df["Value"].apply(lambda x: f"{x:.6f}" if isinstance(x, float) else x)
+    st.table(df)
 
