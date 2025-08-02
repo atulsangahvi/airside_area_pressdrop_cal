@@ -3,6 +3,28 @@ import math
 import streamlit as st
 import pandas as pd
 from CoolProp.CoolProp import PropsSI
+try:
+    from CoolProp.CoolProp import PropsSI
+    coolprop_available = True
+except ImportError:
+    coolprop_available = False
+
+def air_properties_lookup(T_C):
+    # Approximate air properties from 0°C to 60°C
+    T_table = [0, 10, 20, 30, 40, 50, 60]
+    mu_table = [1.71e-5, 1.75e-5, 1.81e-5, 1.87e-5, 1.92e-5, 1.98e-5, 2.03e-5]  # Pa·s
+    rho_table = [1.293, 1.247, 1.204, 1.165, 1.127, 1.093, 1.060]  # kg/m³
+
+    T_C = max(0, min(60, T_C))  # clamp range
+
+    for i in range(len(T_table)-1):
+        if T_table[i] <= T_C <= T_table[i+1]:
+            frac = (T_C - T_table[i]) / (T_table[i+1] - T_table[i])
+            mu = mu_table[i] + frac * (mu_table[i+1] - mu_table[i])
+            rho = rho_table[i] + frac * (rho_table[i+1] - rho_table[i])
+            return rho, mu
+
+    return rho_table[-1], mu_table[-1]
 
 def calculate_air_side_area(
     tube_od_mm,
