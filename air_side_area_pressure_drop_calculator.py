@@ -7,7 +7,8 @@ from CoolProp.CoolProp import PropsSI
 def calculate_air_side_area(
     tube_od_mm,
     tube_thickness_mm,
-    triangular_pitch_mm,
+    row_pitch_mm,
+    tube_pitch_mm,
     fin_thickness_mm,
     fpi,
     num_rows,
@@ -18,14 +19,15 @@ def calculate_air_side_area(
 ):
     # Convert inputs
     tube_od_m = tube_od_mm / 1000
-    triangular_pitch_m = triangular_pitch_mm / 1000
+    row_pitch_m = row_pitch_mm / 1000
+    tube_pitch_m = tube_pitch_mm / 1000
     fin_thickness_m = fin_thickness_mm / 1000
     fins_per_m = fpi * 39.3701
     frontal_area_m2 = face_width_m * face_height_m
-    fin_depth_m = num_rows * triangular_pitch_m
+    fin_depth_m = num_rows * row_pitch_m
 
     # Tubes
-    tubes_per_row = math.floor(face_width_m / triangular_pitch_m)
+    tubes_per_row = math.floor(face_width_m / tube_pitch_m)
     total_tubes = tubes_per_row * num_rows
     tube_ext_area = total_tubes * (math.pi * tube_od_m)
 
@@ -83,7 +85,8 @@ st.title("Air-Side Area, Flow, and Pressure Drop Calculator")
 
 tube_od_mm = st.number_input("Tube Outer Diameter (mm)", value=9.525)
 tube_thickness_mm = st.number_input("Tube Wall Thickness (mm)", value=0.35)
-triangular_pitch_mm = st.number_input("Triangular Pitch (mm)", value=25.4)
+row_pitch_mm = st.number_input("Triangular Pitch (mm)", value=25.4)
+tube_pitch_mm = st.number_input("Triangular Pitch (mm)", value=25.4)
 fin_thickness_mm = st.number_input("Fin Thickness (mm)", value=0.12)
 fpi = st.number_input("Fins per Inch (FPI)", value=12, step=1)
 num_rows = st.number_input("Number of Rows", value=4, step=1)
@@ -94,7 +97,7 @@ air_temp_C = st.number_input("Air Temperature (°C)", value=35.0, step=0.5)
 
 if st.button("Calculate"):
     results = calculate_air_side_area(
-        tube_od_mm, tube_thickness_mm, triangular_pitch_mm,
+        tube_od_mm, tube_thickness_mm, row_pitch_mm, tube_pitch_mm
         fin_thickness_mm, fpi, num_rows, face_width_m,
         face_height_m, air_flow_cmh, air_temp_C
     )
