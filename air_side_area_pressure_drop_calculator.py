@@ -97,7 +97,7 @@ air_temp_C = st.number_input("Air Temperature (°C)", value=35.0, step=0.5)
 
 if st.button("Calculate"):
     results = calculate_air_side_area(
-        tube_od_mm, tube_thickness_mm, row_pitch_mm, tube_pitch_mm
+        tube_od_mm, tube_thickness_mm, row_pitch_mm, tube_pitch_mm,
         fin_thickness_mm, fpi, num_rows, face_width_m,
         face_height_m, air_flow_cmh, air_temp_C
     )
