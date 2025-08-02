@@ -85,12 +85,12 @@ tube_od_mm = st.number_input("Tube Outer Diameter (mm)", value=9.525)
 tube_thickness_mm = st.number_input("Tube Wall Thickness (mm)", value=0.35)
 triangular_pitch_mm = st.number_input("Triangular Pitch (mm)", value=25.4)
 fin_thickness_mm = st.number_input("Fin Thickness (mm)", value=0.12)
-fpi = st.number_input("Fins per Inch (FPI)", value=12)
-num_rows = st.number_input("Number of Rows", value=4)
-face_width_m = st.number_input("Coil Face Width (m)", value=1.0)
-face_height_m = st.number_input("Coil Face Height (m)", value=1.0)
-air_flow_cmh = st.number_input("Air Flow Rate (m³/h)", value=10000)
-air_temp_C = st.number_input("Air Temperature (°C)", value=35.0)
+fpi = st.number_input("Fins per Inch (FPI)", value=12, step=1)
+num_rows = st.number_input("Number of Rows", value=4, step=1)
+face_width_m = st.number_input("Coil Face Width (m)", value=1.0, step=0.0254)
+face_height_m = st.number_input("Coil Face Height (m)", value=1.0, step=0.0127)
+air_flow_cmh = st.number_input("Air Flow Rate (m³/h)", value=10000, step=50)
+air_temp_C = st.number_input("Air Temperature (°C)", value=35.0, step=0.5)
 
 if st.button("Calculate"):
     results = calculate_air_side_area(
